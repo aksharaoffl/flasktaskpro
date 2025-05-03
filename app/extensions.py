@@ -9,4 +9,3 @@ migrate = Migrate()
 jwt = JWTManager()
 cors = CORS()
 celery = Celery(__name__)
-

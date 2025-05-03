@@ -2,6 +2,7 @@ from flask import Flask
 from app.config import Config
 from app.extensions import db, migrate, jwt, cors, celery
 from app.routes import register_routes
+from app.models import User, Task
 
 def create_app():
     app = Flask(__name__)

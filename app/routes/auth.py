@@ -5,6 +5,7 @@ from flask_jwt_extended import create_access_token, create_refresh_token, jwt_re
 
 auth_bp = Blueprint('auth', __name__)
 
+
 @auth_bp.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
@@ -19,6 +20,7 @@ def register():
     db.session.add(user)
     db.session.commit()
     return jsonify({'message': 'User registered successfully'}), 201
+
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
@@ -37,12 +39,14 @@ def login():
     else:
         return jsonify({'error': 'Invalid username or password'}), 401
 
+
 @auth_bp.route('/refresh', methods=['POST'])
 @jwt_required(refresh=True)
 def refresh():
     user_id = get_jwt_identity()
     new_token = create_access_token(identity=user_id)
     return jsonify({'access_token': new_token}), 200
+
 
 @auth_bp.route('/me', methods=['GET'])
 @jwt_required()
@@ -54,6 +58,7 @@ def me():
         'username': user.username,
         'email': user.email
     }), 200
+
 
 @auth_bp.route('/ping', methods=['GET'])
 def ping():
